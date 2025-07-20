@@ -5,6 +5,7 @@ black_list = {
     'minecraft:gravel',
     'minecraft:dirt',
     'minecraft:cobbled_deepslate',
+    'minecraft:tuff'
 }
 
 -- Todo: Dump items on black list
