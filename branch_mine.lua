@@ -1,13 +1,10 @@
 os.loadAPI("navigation.lua")
 
-
 black_list = {
-    'tuff',
-    'stone',
-    'slate',
-    'gravel',
-    'sand',
-    'dirt'
+    'forbidden_arcanus:darkstone',
+    'minecraft:gravel',
+    'minecraft:dirt',
+    'minecraft:cobbled_deepslate',
 }
 
 -- Todo: Dump items on black list
@@ -18,7 +15,7 @@ black_list = {
 
 function in_back_list(value)
     for i = 1, #black_list do
-        if string.find(string.lower(value), black_list[i]) then
+        if black_list[i] == value then
             return true
         end
     end
