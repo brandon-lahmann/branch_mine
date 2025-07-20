@@ -1,17 +1,20 @@
 os.loadAPI("navigation.lua")
 
 black_list = {
-    'minecraft:tuff'
+    'tuff',
+    'stone',
+    'slate'
 }
 
 -- Todo: Dump items on black list
 -- Todo: Return home if low on fuel
 -- Todo: Return home if inventory is full
 -- Todo: Auto refuel (unless full)
+-- Todo: Command line arg to limit branch mine length
 
-function contains(array, value)
-    for i = 1, #array do
-        if array[i] == value then
+function in_back_list(value)
+    for i = 1, #black_list do
+        if string.find(string.lower(value), black_list[i]) then
             return true
         end
     end
@@ -20,20 +23,20 @@ end
 
 function identify_valuable()
     local block, data = turtle.inspectUp()
-    if block and not contains(black_list, data.name) then
+    if block and not in_back_list(data.name) then
         print(data.name .. ' detected pos_z')
         return 'pos_z'
     end
 
     local block, data = turtle.inspectDown()
-    if block and not contains(black_list, data.name) then
+    if block and not in_back_list(data.name) then
         print(data.name .. ' detected neg_z')
         return 'neg_z'
     end
 
     for i = 1, 4 do
         local block, data = turtle.inspect()
-        if block and not contains(black_list, data.name) then
+        if block and not in_back_list(data.name) then
             print(data.name .. ' detected ' .. navigation.direction_map[navigation.facing])
             return navigation.direction_map[navigation.facing]
         end
