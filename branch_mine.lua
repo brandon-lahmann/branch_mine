@@ -1,5 +1,6 @@
 os.loadAPI("navigation.lua")
 
+
 black_list = {
     'tuff',
     'stone',
