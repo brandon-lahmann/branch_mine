@@ -72,7 +72,7 @@ function set_destructive(destructive)
 end
 
 function go_to(destination)
-    delta = _position - destination
+    delta = destination - _position
 
     if delta.x > 0 then
         if not set_orientation('pos_x') then return false end
