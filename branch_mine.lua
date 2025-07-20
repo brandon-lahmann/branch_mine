@@ -3,7 +3,10 @@ os.loadAPI("navigation.lua")
 black_list = {
     'tuff',
     'stone',
-    'slate'
+    'slate',
+    'gravel',
+    'sand',
+    'dirt'
 }
 
 -- Todo: Dump items on black list
