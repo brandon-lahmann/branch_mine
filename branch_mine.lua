@@ -14,12 +14,6 @@ function contains(array, value)
 end
 
 function identify_valuable()
-    block, data = turtle.inspect()
-    if block and not contains(black_list, data.name) then
-        print(data.name .. ' detected ' .. navigation.facing)
-        return navigation.facing
-    end
-
     block, data = turtle.inspectUp()
     if block and not contains(black_list, data.name) then
         print(data.name .. ' detected pos_z')
@@ -32,22 +26,14 @@ function identify_valuable()
         return 'neg_z'
     end
 
-    navigation.set_orientation('pos_x')
-    block, data = turtle.inspect()
-    if block and not contains(black_list, data.name) then
-        print(data.name .. ' detected ' .. navigation.facing)
-        return navigation.facing
+    for i = 1, 4 do
+        block, data = turtle.inspect()
+        if block and not contains(black_list, data.name) then
+            print(data.name .. ' detected ' .. navigation.direction_map[navigation.facing])
+            return navigation.direction_map[navigation.facing]
+        end
+        navigation.turn_right(1)
     end
-
-    navigation.set_orientation('neg_x')
-    block, data = turtle.inspect()
-    if block and not contains(black_list, data.name) then
-        print(data.name .. ' detected ' .. navigation.facing)
-        return navigation.facing
-    end
-
-    navigation.set_orientation('pos_y')
-    return false
 end
 
 

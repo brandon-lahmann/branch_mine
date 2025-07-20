@@ -1,12 +1,16 @@
-_directions = {
+direction_map = {
     pos_y = 0,
     pos_x = 1,
     neg_y = 2,
-    neg_x = 3
+    neg_x = 3,
+    [0] = 'pos_y',
+    [1] = 'pos_x',
+    [2] = 'neg_y',
+    [3] = 'neg_x'
 }
 
 position = vector.new(0, 0, 0)
-facing = _directions.pos_y
+facing = 0
 destructive_mode = false
 
 function get_distance(from, to)
@@ -53,22 +57,40 @@ function go_down(n)
     return true
 end
 
-function set_orientation(orientation)
-    local value = _directions[orientation]
-    if value == nil then
+function turn_left(n)
+    for i = 1, n do
+        turtle.turnLeft()
+        facing = (facing - 1) % 4
+    end
+end
+
+function turn_right(n)
+    for i = 1, n do
+        turtle.turnRight()
+        facing = (facing + 1) % 4
+    end
+end
+
+function set_facing(direction)
+    local value
+    if type(direction) == "number" then
+        value = direction
+    elseif type(direction) == "string" then
+        value = direction_map[direction]
+        if value == nil then
+            return false
+        end
+    else
         return false
     end
 
     local num_turns = (value - facing) % 4
     if num_turns == 3 then
-        turtle.turnLeft()
+        turn_left(1)
     else
-        for i = 1, num_turns do
-            turtle.turnRight()
-        end
+        turn_right(num_turns)
     end
 
-    facing = value
     return true
 end
 
@@ -76,22 +98,22 @@ function go_to(destination)
     delta = destination - position
 
     if delta.x > 0 then
-        if not set_orientation('pos_x') then return false end
+        if not set_facing('pos_x') then return false end
         if not _go_forward(delta.x) then return false end
     end
 
     if delta.x < 0 then
-        if not set_orientation('neg_x') then return false end
+        if not set_facing('neg_x') then return false end
         if not _go_forward(-delta.x) then return false end
     end
 
     if delta.y > 0 then
-        if not set_orientation('pos_y') then return false end
+        if not set_facing('pos_y') then return false end
         if not _go_forward(delta.y) then return false end
     end
 
     if delta.y < 0 then
-        if not set_orientation('neg_y') then return false end
+        if not set_facing('neg_y') then return false end
         if not _go_forward(-delta.y) then return false end
     end
 
