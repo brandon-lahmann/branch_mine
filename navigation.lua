@@ -99,30 +99,30 @@ function go_to(destination)
 
     if delta.x > 0 then
         if not set_facing('pos_x') then return false end
-        if not _go_forward(delta.x) then return false end
+        if not go_forward(delta.x) then return false end
     end
 
     if delta.x < 0 then
         if not set_facing('neg_x') then return false end
-        if not _go_forward(-delta.x) then return false end
+        if not go_forward(-delta.x) then return false end
     end
 
     if delta.y > 0 then
         if not set_facing('pos_y') then return false end
-        if not _go_forward(delta.y) then return false end
+        if not go_forward(delta.y) then return false end
     end
 
     if delta.y < 0 then
         if not set_facing('neg_y') then return false end
-        if not _go_forward(-delta.y) then return false end
+        if not go_forward(-delta.y) then return false end
     end
 
     if delta.z > 0 then
-        if not _go_up(delta.z) then return false end
+        if not go_up(delta.z) then return false end
     end
 
     if delta.z < 0 then
-        if not _go_down(-delta.z) then return false end
+        if not go_down(-delta.z) then return false end
     end
 
     return true
