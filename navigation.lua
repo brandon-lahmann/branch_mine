@@ -41,16 +41,16 @@ end
 
 function go_forward(n)
     local deltas = {
-        [0] = {x = 0, y = 1},
-        [1] = {x = 1, y = 0},
-        [2] = {x = 0, y = -1},
-        [3] = {x = -1, y = 0}
+        [0] = {x = 1, z = 0},
+        [1] = {x = 0, z = 1},
+        [2] = {x = -1, z = 0},
+        [3] = {x = 0, z = -1}
     }
     for i = 1, n do
         if destructive_mode then turtle.dig() end
         if turtle.forward() then
             position.x = position.x + deltas[facing].x
-            position.y = position.y + deltas[facing].y
+            position.z = position.z + deltas[facing].z
         else
             return false
         end
@@ -61,7 +61,7 @@ end
 function go_up(n)
     for i = 1, n do
         if destructive_mode then turtle.digUp() end
-        if turtle.up() then position.z = position.z + 1
+        if turtle.up() then position.y = position.y + 1
         else return false
         end
     end
@@ -71,7 +71,7 @@ end
 function go_down(n)
     for i = 1, n do
         if destructive_mode then turtle.digDown() end
-        if turtle.down() then position.z = position.z - 1
+        if turtle.down() then position.y = position.y - 1
         else return false
         end
     end
