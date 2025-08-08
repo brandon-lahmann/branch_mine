@@ -1,20 +1,42 @@
 local destructive_mode = false
+local oriented = false
 local position = vector.new(0, 0, 0)
 local facing = 0
 local direction_map = {
-    pos_y = 0,
-    pos_x = 1,
-    neg_y = 2,
-    neg_x = 3,
-    [0] = 'pos_y',
-    [1] = 'pos_x',
-    [2] = 'neg_y',
-    [3] = 'neg_x'
+    pos_x = 0,
+    pos_z = 1,
+    neg_x = 2,
+    neg_z = 3,
+    east = 0,
+    south = 1,
+    west = 2,
+    north = 3,
+    [0] = 'pos_x',
+    [1] = 'pos_z',
+    [2] = 'neg_x',
+    [3] = 'neg_z',
+    [0] = 'east',
+    [1] = 'south',
+    [2] = 'west',
+    [3] = 'north'
 }
 
 function get_distance(from, to)
     delta = from - to
     return math.abs(delta.x) + math.abs(delta.y) + math.abs(delta.z)
+end
+
+function set_destructive_mode(mode)
+    destructive_mode = mode
+end
+
+function set_orientation(current_facing)
+    if direction_map[current_facing] == nil then
+        return false
+    end
+    facing = direction_map[current_facing]
+    oriented = true
+    return true
 end
 
 function go_forward(n)
@@ -70,7 +92,7 @@ function turn_right(n)
     end
 end
 
-function set_facing(direction)
+function turn_to(direction)
     local value
     if type(direction) == "number" then
         value = direction
@@ -97,31 +119,31 @@ function go_to(destination)
     delta = destination - position
 
     if delta.x > 0 then
-        if not set_facing('pos_x') then return false end
+        if not turn_to('pos_x') then return false end
         if not go_forward(delta.x) then return false end
     end
 
     if delta.x < 0 then
-        if not set_facing('neg_x') then return false end
+        if not turn_to('neg_x') then return false end
         if not go_forward(-delta.x) then return false end
     end
 
-    if delta.y > 0 then
-        if not set_facing('pos_y') then return false end
-        if not go_forward(delta.y) then return false end
-    end
-
-    if delta.y < 0 then
-        if not set_facing('neg_y') then return false end
-        if not go_forward(-delta.y) then return false end
-    end
-
     if delta.z > 0 then
-        if not go_up(delta.z) then return false end
+        if not turn_to('pos_z') then return false end
+        if not go_forward(delta.z) then return false end
     end
 
     if delta.z < 0 then
-        if not go_down(-delta.z) then return false end
+        if not turn_to('neg_z') then return false end
+        if not go_forward(-delta.z) then return false end
+    end
+
+    if delta.y > 0 then
+        if not go_up(delta.y) then return false end
+    end
+
+    if delta.y < 0 then
+        if not go_down(-delta.y) then return false end
     end
 
     return true
