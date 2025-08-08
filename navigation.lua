@@ -39,6 +39,10 @@ function set_orientation(current_facing)
     return true
 end
 
+function get_position()
+    return position
+end
+
 function go_forward(n)
     local deltas = {
         [0] = {x = 1, z = 0},
