@@ -1,8 +1,4 @@
--- navigation.lua
-
-local navigation = {}
-navigation.destructive_mode = false
-
+local destructive_mode = false
 local position = vector.new(0, 0, 0)
 local facing = 0
 local direction_map = {
@@ -21,7 +17,7 @@ function get_distance(from, to)
     return math.abs(delta.x) + math.abs(delta.y) + math.abs(delta.z)
 end
 
-function navigation.go_forward(n)
+function go_forward(n)
     local deltas = {
         [0] = {x = 0, y = 1},
         [1] = {x = 1, y = 0},
@@ -40,7 +36,7 @@ function navigation.go_forward(n)
     return true
 end
 
-function navigation.go_up(n)
+function go_up(n)
     for i = 1, n do
         if destructive_mode then turtle.digUp() end
         if turtle.up() then position.z = position.z + 1
@@ -50,7 +46,7 @@ function navigation.go_up(n)
     return true
 end
 
-function navigation.go_down(n)
+function go_down(n)
     for i = 1, n do
         if destructive_mode then turtle.digDown() end
         if turtle.down() then position.z = position.z - 1
@@ -60,21 +56,21 @@ function navigation.go_down(n)
     return true
 end
 
-function navigation.turn_left(n)
+function turn_left(n)
     for i = 1, n do
         turtle.turnLeft()
         facing = (facing - 1) % 4
     end
 end
 
-function navigation.turn_right(n)
+function turn_right(n)
     for i = 1, n do
         turtle.turnRight()
         facing = (facing + 1) % 4
     end
 end
 
-function navigation.set_facing(direction)
+function set_facing(direction)
     local value
     if type(direction) == "number" then
         value = direction
@@ -97,7 +93,7 @@ function navigation.set_facing(direction)
     return true
 end
 
-function navigation.go_to(destination)
+function go_to(destination)
     delta = destination - position
 
     if delta.x > 0 then
