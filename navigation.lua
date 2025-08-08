@@ -40,7 +40,7 @@ function set_orientation(current_facing)
 end
 
 function get_position()
-    return position
+    return position:copy()
 end
 
 function go_forward(n)
