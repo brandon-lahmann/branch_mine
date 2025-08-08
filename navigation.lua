@@ -1,4 +1,9 @@
-direction_map = {
+local navigation = {}
+navigation.destructive_mode = false
+
+local position = vector.new(0, 0, 0)
+local facing = 0
+local direction_map = {
     pos_y = 0,
     pos_x = 1,
     neg_y = 2,
@@ -8,10 +13,6 @@ direction_map = {
     [2] = 'neg_y',
     [3] = 'neg_x'
 }
-
-local position = vector.new(0, 0, 0)
-local facing = 0
-navigation.destructive_mode = false
 
 function get_distance(from, to)
     delta = from - to
