@@ -40,7 +40,7 @@ function set_orientation(current_facing)
 end
 
 function get_position()
-    return position:copy()
+    return vector.new(position.x, position.y, position.z)
 end
 
 function go_forward(n)
