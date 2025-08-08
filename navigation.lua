@@ -1,3 +1,5 @@
+-- navigation.lua
+
 local navigation = {}
 navigation.destructive_mode = false
 
