@@ -43,6 +43,10 @@ function get_position()
     return vector.new(position.x, position.y, position.z)
 end
 
+function set_position(pos)
+    position = pos
+end
+
 function go_forward(n)
     local deltas = {
         [0] = {x = 1, z = 0},
