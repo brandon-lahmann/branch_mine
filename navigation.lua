@@ -133,31 +133,31 @@ function go_to(destination, num_attempts)
     delta = destination - position
 
     if delta.x > 0 then
-        if not turn_to('pos_x') then go_to(destination, num_attempts - 1) end
-        if not go_forward(delta.x) then go_to(destination, num_attempts - 1) end
+        if not turn_to('pos_x') then return go_to(destination, num_attempts - 1) end
+        if not go_forward(delta.x) then return go_to(destination, num_attempts - 1) end
     end
 
     if delta.x < 0 then
-        if not turn_to('neg_x') then go_to(destination, num_attempts - 1) end
-        if not go_forward(-delta.x) then go_to(destination, num_attempts - 1) end
+        if not turn_to('neg_x') then return go_to(destination, num_attempts - 1) end
+        if not go_forward(-delta.x) then return go_to(destination, num_attempts - 1) end
     end
 
     if delta.z > 0 then
-        if not turn_to('pos_z') then go_to(destination, num_attempts - 1) end
-        if not go_forward(delta.z) then go_to(destination, num_attempts - 1) end
+        if not turn_to('pos_z') then return go_to(destination, num_attempts - 1) end
+        if not go_forward(delta.z) then return go_to(destination, num_attempts - 1) end
     end
 
     if delta.z < 0 then
-        if not turn_to('neg_z') then go_to(destination, num_attempts - 1) end
-        if not go_forward(-delta.z) then go_to(destination, num_attempts - 1) end
+        if not turn_to('neg_z') then return go_to(destination, num_attempts - 1) end
+        if not go_forward(-delta.z) then return go_to(destination, num_attempts - 1) end
     end
 
     if delta.y > 0 then
-        if not go_up(delta.y) then go_to(destination, num_attempts - 1) end
+        if not go_up(delta.y) then return go_to(destination, num_attempts - 1) end
     end
 
     if delta.y < 0 then
-        if not go_down(-delta.y) then go_to(destination, num_attempts - 1) end
+        if not go_down(-delta.y) then return go_to(destination, num_attempts - 1) end
     end
 
     return true
